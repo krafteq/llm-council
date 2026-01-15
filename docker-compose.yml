@@ -11,6 +11,7 @@ services:
       - "8001:8001"
     volumes:
       - ./backend:/app/backend
+      - ./data/conversations:/app/data/conversations
     restart: unless-stopped
 
   frontend:
@@ -18,7 +19,7 @@ services:
       context: .
       dockerfile: Dockerfile.frontend
     ports:
-      - "5174:5173"
+      - "5173:5173"
     depends_on:
       - backend
     restart: unless-stopped
