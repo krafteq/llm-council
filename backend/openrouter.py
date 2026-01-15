@@ -2,7 +2,7 @@
 
 import httpx
 from typing import List, Dict, Any, Optional
-from .config import OPENROUTER_API_KEY, OPENROUTER_API_URL
+from .config import OPENROUTER_API_KEY, OPENROUTER_API_URL, NEBIUS_API_KEY, NEBIUS_API_URL
 
 
 async def query_model(
@@ -21,37 +21,72 @@ async def query_model(
     Returns:
         Response dict with 'content' and optional 'reasoning_details', or None if failed
     """
-    headers = {
-        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "Content-Type": "application/json",
-    }
 
-    payload = {
-        "model": model["model"],
-        "messages": messages,
-    }
+    if (model["provider"] == "openrouter"):
+        headers = {
+            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+            "Content-Type": "application/json",
+        }
 
-    try:
-        async with httpx.AsyncClient(timeout=timeout) as client:
-            response = await client.post(
-                OPENROUTER_API_URL,
-                headers=headers,
-                json=payload
-            )
-            response.raise_for_status()
+        payload = {
+            "model": model["model"],
+            "messages": messages,
+        }
+        try:
+            async with httpx.AsyncClient(timeout=timeout) as client:
+                response = await client.post(
+                    OPENROUTER_API_URL,
+                    headers=headers,
+                    json=payload
+                )
+                response.raise_for_status()
 
-            data = response.json()
-            message = data['choices'][0]['message']
+                data = response.json()
+                message = data['choices'][0]['message']
 
-            return {
-                'content': message.get('content'),
-                'reasoning_details': message.get('reasoning_details')
-            }
+                return {
+                    'content': message.get('content'),
+                    'reasoning_details': message.get('reasoning_details')
+                }
 
-    except Exception as e:
-        model_name = model["model"]
-        print(f"Error querying model {model_name}: {e}")
-        return None
+        except Exception as e:
+            model_name = model["model"]
+            print(f"Error querying model {model_name}: {e}")
+            return None
+        
+    if (model["provider"] == "nebius"):
+        headers = {
+            "Authorization": f"Bearer {NEBIUS_API_KEY}",
+            "Content-Type": "application/json",
+        }
+
+        payload = {
+            "model": model["model"],
+            "messages": messages,
+        }
+        try:
+            async with httpx.AsyncClient(timeout=timeout) as client:
+                response = await client.post(
+                    NEBIUS_API_URL,
+                    headers=headers,
+                    json=payload
+                )
+                response.raise_for_status()
+
+                data = response.json()
+                message = data['choices'][0]['message']
+
+                print("_______________________________________", flush=True)
+
+                return {
+                    'content': message.get('content'),
+                    'reasoning_details': message.get('reasoning_details')
+                }
+
+        except Exception as e:
+            model_name = model["model"]
+            print(f"Error querying model {model_name}: {e}")
+            return None
 
 
 async def query_models_parallel(
