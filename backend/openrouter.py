@@ -6,7 +6,7 @@ from .config import OPENROUTER_API_KEY, OPENROUTER_API_URL
 
 
 async def query_model(
-    model: str,
+    model: Dict[str, Any],
     messages: List[Dict[str, str]],
     timeout: float = 120.0
 ) -> Optional[Dict[str, Any]]:
@@ -27,7 +27,7 @@ async def query_model(
     }
 
     payload = {
-        "model": model,
+        "model": model["model"],
         "messages": messages,
     }
 
@@ -49,12 +49,13 @@ async def query_model(
             }
 
     except Exception as e:
-        print(f"Error querying model {model}: {e}")
+        model_name = model["model"]
+        print(f"Error querying model {model_name}: {e}")
         return None
 
 
 async def query_models_parallel(
-    models: List[str],
+    models: List[Dict[str, Any]],
     messages: List[Dict[str, str]]
 ) -> Dict[str, Optional[Dict[str, Any]]]:
     """
@@ -76,4 +77,4 @@ async def query_models_parallel(
     responses = await asyncio.gather(*tasks)
 
     # Map models to their responses
-    return {model: response for model, response in zip(models, responses)}
+    return {model["model"]: response for model, response in zip(models, responses)}

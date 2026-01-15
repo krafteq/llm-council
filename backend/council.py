@@ -164,12 +164,12 @@ Provide a clear, well-reasoned final answer that represents the council's collec
     if response is None:
         # Fallback if chairman fails
         return {
-            "model": CHAIRMAN_MODEL,
+            "model": CHAIRMAN_MODEL["model"],
             "response": "Error: Unable to generate final synthesis."
         }
 
     return {
-        "model": CHAIRMAN_MODEL,
+        "model": CHAIRMAN_MODEL["model"],
         "response": response.get('content', '')
     }
 
@@ -275,7 +275,7 @@ Title:"""
     messages = [{"role": "user", "content": title_prompt}]
 
     # Use gemini-2.5-flash for title generation (fast and cheap)
-    response = await query_model("google/gemini-2.5-flash", messages, timeout=30.0)
+    response = await query_model(CHAIRMAN_MODEL["model"], messages, timeout=30.0)
 
     if response is None:
         # Fallback to a generic title
