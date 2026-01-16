@@ -49,9 +49,9 @@ COUNCIL_MODELS = [
         "model":"x-ai/grok-4"
     },
     {
-        "id": "gpt-oss:20b",
+        "id": "gpt-oss-120b",
         "provider": "nebius",
-        "model": "openai/openai/gpt-oss:20b",
+        "model": "openai/gpt-oss-120b",
     }
 ]
 

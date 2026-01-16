@@ -23,6 +23,7 @@ async def query_model(
     """
 
     if (model["provider"] == "openrouter"):
+        print("________________________________________ openrouter", flush=True)
         headers = {
             "Authorization": f"Bearer {OPENROUTER_API_KEY}",
             "Content-Type": "application/json",
@@ -55,6 +56,7 @@ async def query_model(
             return None
         
     if (model["provider"] == "nebius"):
+        print("________________________________________ nebius", flush=True)
         headers = {
             "Authorization": f"Bearer {NEBIUS_API_KEY}",
             "Content-Type": "application/json",
