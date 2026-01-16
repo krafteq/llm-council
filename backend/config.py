@@ -29,27 +29,12 @@ NEBIUS_API_URL = "https://api.tokenfactory.nebius.com/v1/chat/completions"
 
 COUNCIL_MODELS = [
     {
-        "id": "openai-gpt-5.1",
-        "provider": "openrouter",
-        "model":"openai/gpt-5.1"
+        "id": "nebius-Qwen3-Coder-480B-A35B-Instruct",
+        "provider": "nebius",
+        "model":"Qwen/Qwen3-Coder-480B-A35B-Instruct"
     },
     {
-        "id": "google-gemini-3-pro-preview",
-        "provider": "openrouter",
-        "model":"google/gemini-3-pro-preview"
-    },
-    {
-        "id": "anthropic-claude-sonnet-4.5",
-        "provider": "openrouter",
-        "model":"anthropic/claude-sonnet-4.5"
-    },
-    {
-        "id": "x-ai-grok-4",
-        "provider": "openrouter",
-        "model":"x-ai/grok-4"
-    },
-    {
-        "id": "gpt-oss-120b",
+        "id": "nebius-gpt-oss-120b",
         "provider": "nebius",
         "model": "openai/gpt-oss-120b",
     }
@@ -61,7 +46,7 @@ COUNCIL_MODELS = [
 CHAIRMAN_MODEL = {
         "id": "gpt-oss:20b",
         "provider": "nebius",
-        "model":"google/gemini-3-pro-preview"
+        "model":"openai/gpt-oss-120b"
     }
 
 # Data directory for conversation storage
