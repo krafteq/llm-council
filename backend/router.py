@@ -1,7 +1,7 @@
 import httpx
 from typing import List, Dict, Any, Optional
 import asyncio
-from .config import OPENROUTER_API_KEY, OPENROUTER_API_URL, NEBIUS_API_KEY, NEBIUS_API_URL
+from .config import OPENROUTER_API_KEY, OPENROUTER_API_URL, NEBIUS_API_KEY, NEBIUS_API_URL, LOCAL_API_KEY, LOCAL_API_URL
 
 
 async def query_model(
@@ -10,9 +10,9 @@ async def query_model(
     timeout: float = 120.0
 ) -> Optional[Dict[str, Any]]:
 
-    if (model["provider"] == "openrouter"):
+    if (model["provider"] == "local"):
         headers = {
-            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+            "Authorization": f"Bearer {LOCAL_API_KEY}",
             "Content-Type": "application/json",
         }
 
@@ -23,7 +23,7 @@ async def query_model(
         try:
             async with httpx.AsyncClient(timeout=timeout) as client:
                 response = await client.post(
-                    OPENROUTER_API_URL,
+                    LOCAL_API_URL,
                     headers=headers,
                     json=payload
                 )

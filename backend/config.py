@@ -35,15 +35,15 @@ LOCAL_API_URL = "http://host.docker.internal:11434/v1/chat/completions"
 # ]
 
 COUNCIL_MODELS = [
-    # {
-    #     "id": "nebius-Qwen3-Coder-480B-A35B-Instruct",
-    #     "provider": "nebius",
-    #     "model":"Qwen/Qwen3-Coder-480B-A35B-Instruct"
-    # },
     {
-        "id": "local-deepseek-coder:33b-instruct",
+        "id": "nebius-Qwen3-Coder-480B-A35B-Instruct",
+        "provider": "nebius",
+        "model":"Qwen/Qwen3-Coder-480B-A35B-Instruct"
+    },
+    {
+        "id": "local-deepseek-coder:6.7b",
         "provider": "local",
-        "model": "ollama/deepseek-coder:33b-instruct",
+        "model": "deepseek-coder:6.7b",
     }
 ]
 
