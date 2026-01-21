@@ -11,11 +11,18 @@ OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 # OpenRouter API endpoint
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
-# OpenRouter API key
+# Nebius API key
 NEBIUS_API_KEY = os.getenv("NEBIUS_API_KEY")
 
-# OpenRouter API endpoint
+# Nebius API endpoint
 NEBIUS_API_URL = "https://api.tokenfactory.nebius.com/v1/chat/completions"
+
+# Local API key
+LOCAL_API_KEY = os.getenv("LOCAL_API_KEY")
+
+# Local API endpoint
+LOCAL_API_URL = "http://host.docker.internal:11434/v1/chat/completions"
+
 
 
 
@@ -28,15 +35,15 @@ NEBIUS_API_URL = "https://api.tokenfactory.nebius.com/v1/chat/completions"
 # ]
 
 COUNCIL_MODELS = [
+    # {
+    #     "id": "nebius-Qwen3-Coder-480B-A35B-Instruct",
+    #     "provider": "nebius",
+    #     "model":"Qwen/Qwen3-Coder-480B-A35B-Instruct"
+    # },
     {
-        "id": "nebius-Qwen3-Coder-480B-A35B-Instruct",
-        "provider": "nebius",
-        "model":"Qwen/Qwen3-Coder-480B-A35B-Instruct"
-    },
-    {
-        "id": "nebius-gpt-oss-120b",
-        "provider": "nebius",
-        "model": "openai/gpt-oss-120b",
+        "id": "local-deepseek-coder:33b-instruct",
+        "provider": "local",
+        "model": "ollama/deepseek-coder:33b-instruct",
     }
 ]
 

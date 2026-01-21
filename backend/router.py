@@ -1,7 +1,6 @@
-"""OpenRouter API client for making LLM requests."""
-
 import httpx
 from typing import List, Dict, Any, Optional
+import asyncio
 from .config import OPENROUTER_API_KEY, OPENROUTER_API_URL, NEBIUS_API_KEY, NEBIUS_API_URL
 
 
@@ -10,17 +9,6 @@ async def query_model(
     messages: List[Dict[str, str]],
     timeout: float = 120.0
 ) -> Optional[Dict[str, Any]]:
-    """
-    Query a single model via OpenRouter API.
-
-    Args:
-        model: OpenRouter model identifier (e.g., "openai/gpt-4o")
-        messages: List of message dicts with 'role' and 'content'
-        timeout: Request timeout in seconds
-
-    Returns:
-        Response dict with 'content' and optional 'reasoning_details', or None if failed
-    """
 
     if (model["provider"] == "openrouter"):
         headers = {
@@ -92,18 +80,7 @@ async def query_models_parallel(
     models: List[Dict[str, Any]],
     messages: List[Dict[str, str]]
 ) -> Dict[str, Optional[Dict[str, Any]]]:
-    """
-    Query multiple models in parallel.
-
-    Args:
-        models: List of OpenRouter model identifiers
-        messages: List of message dicts to send to each model
-
-    Returns:
-        Dict mapping model identifier to response dict (or None if failed)
-    """
-    import asyncio
-
+    
     # Create tasks for all models
     tasks = [query_model(model, messages) for model in models]
 
